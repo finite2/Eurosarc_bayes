@@ -8,14 +8,17 @@ bayes_binom_one_postprob_onestage=function(p0,p1,eta,zeta,prior.a=0,prior.b=0,ro
   a=0;b=0
   while(a<eta | b<zeta){
     n=n+1
-    a=1-pbeta(p0,prior.a+success,prior.b+n-success)
-    while(a<eta){
-      success=success+1
+    success = n
+    a=pbeta(p1,prior.a+success,prior.b+n-success)
+
+    while(a<eta & success > 1){
+      success=success-1
       failure=success-1
-      a=1-pbeta(p0,prior.a+success,prior.b+n-success)
+      a=pbeta(p1,prior.a+failure,prior.b+n-failure)
     }
-    a=1-pbeta(p0,prior.a+success,prior.b+n-success)
-    b=pbeta(p1,prior.a+failure,prior.b+n-failure)
+    a=pbeta(p1,prior.a+failure,prior.b+n-failure)
+    b=1-pbeta(p0,prior.a+success,prior.b+n-success)
+    print(c(n, success, failure, a, b))
   }
 
   alpha=1-pbinom(success-1,n,p0)
