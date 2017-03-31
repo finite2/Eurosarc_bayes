@@ -5,7 +5,7 @@ freq_binom_two_bryantday_twostage=function(r0=0.2,r1=0.35,t0=0.3,t1=0.1,alpha.r,
   t1=1-t1
   t0=1-t0
 
-  output=matrix(0,1,14)
+  output=data.frame(matrix(0,1,14))
   imax=1000
 
   # generate a matrix of all designs which fit criteria
@@ -58,7 +58,6 @@ freq_binom_two_bryantday_twostage=function(r0=0.2,r1=0.35,t0=0.3,t1=0.1,alpha.r,
   }
 
   output=output[-1,]
-  output=data.frame(output)
   names(output)=c("Interim","Iresponse","Itoxicity","final","response","toxicity","alpha.r","alpha.t","power","ssr0t1","ssr1t1","ssr0t0","ssanynull","ssalt")
 
   min=which.min(output[,13])
